@@ -170,23 +170,11 @@ section.block{padding:84px 0}
 
 /* VIDEO */
 .video-wrap{max-width:880px;margin:0 auto}
-.video-box{position:relative;border-radius:22px;overflow:hidden;cursor:pointer;box-shadow:0 30px 70px -30px rgba(232,67,12,.45);aspect-ratio:16/9;background:#1A1410}
-.video-thumb{position:absolute;inset:0;display:flex;flex-direction:column;background:linear-gradient(135deg,#2A211B,#1A1410)}
-.vt-bar{height:38px;background:#0e0b08;display:flex;align-items:center;gap:7px;padding:0 16px}
-.vt-bar span{width:11px;height:11px;border-radius:50%;background:#444}
-.vt-bar span:nth-child(1){background:#FF5F57}
-.vt-bar span:nth-child(2){background:#FEBC2E}
-.vt-bar span:nth-child(3){background:#28C840}
-.vt-bar .vt-url{width:auto;height:auto;border-radius:8px;background:#1f1a15;color:#9A8D82;font-size:.72rem;font-family:'Outfit';padding:4px 16px;margin-left:14px}
-.vt-screen{flex:1;display:flex;background:#f7f1ea}
-.vt-side{width:22%;background:linear-gradient(180deg,var(--laranja),var(--laranja-escuro))}
-.vt-main{flex:1;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
-.vt-card{height:54px;border-radius:10px;background:#fff;box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}
-.vt-card.wide{grid-column:span 2;height:40px;background:linear-gradient(135deg,rgba(255,90,31,.18),rgba(255,176,32,.12))}
-.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--laranja),var(--laranja-escuro));box-shadow:0 18px 44px -14px rgba(232,67,12,.8);display:flex;align-items:center;justify-content:center;transition:transform .25s;animation:pulse 2.4s infinite}
-.play-btn:hover{transform:translate(-50%,-50%) scale(1.08)}
-.play-btn svg{width:38px;height:38px;color:#fff;margin-left:5px}
-.video-label{position:absolute;bottom:16px;right:18px;background:rgba(26,20,16,.7);color:#fff;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:50px;backdrop-filter:blur(6px)}
+.video-box{position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:200px}
+.video-box.playing{display:block;min-height:0;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(232,67,12,.45);aspect-ratio:16/9}
+.play-btn{width:88px;height:88px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--laranja),var(--laranja-escuro));box-shadow:0 18px 44px -14px rgba(232,67,12,.8);display:flex;align-items:center;justify-content:center;transition:transform .25s;animation:pulse 2.4s infinite}
+.play-btn:hover{transform:scale(1.08)}
+.play-btn svg{width:40px;height:40px;color:#fff;margin-left:5px}
 .video-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 /* FOQUE */
@@ -517,22 +505,9 @@ footer{background:var(--preto);color:#fff;padding:50px 0 28px}
     <div class="video-wrap reveal">
       <!-- Para usar seu vídeo do YouTube: troque o conteúdo abaixo por um iframe, ou defina data-video com o ID do vídeo -->
       <div class="video-box" id="videoBox" data-video="k0h38xGtGY8" onclick="playVideo()">
-        <div class="video-thumb">
-          <div class="vt-bar"><span></span><span></span><span></span><span class="vt-url">pedipronto.com.br</span></div>
-          <div class="vt-screen">
-            <div class="vt-side"></div>
-            <div class="vt-main">
-              <div class="vt-card"></div>
-              <div class="vt-card"></div>
-              <div class="vt-card"></div>
-              <div class="vt-card wide"></div>
-            </div>
-          </div>
-        </div>
         <button class="play-btn" aria-label="Reproduzir vídeo">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </button>
-        <span class="video-label">Ver demonstração</span>
       </div>
     </div>
   </div>
@@ -725,7 +700,8 @@ function closeMenuOutside(e){if(e.target.id==='mobileMenu')closeMenu();}
 function playVideo(){
   var box=document.getElementById('videoBox');
   var id=box.getAttribute('data-video');
-  if(!id){ return; } // sem vídeo ainda, não faz nada
+  if(!id){ return; }
+  box.classList.add('playing');
   box.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
 }
 
